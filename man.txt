@@ -1,0 +1,29 @@
+MAN PIPE :
+<int pipe(int pipefd[2])>
+
+cree un tube unidirectionnel de donnees qui peut etre utilise pour la communication entre processus
+le tableau pipefd est utilise pour renvoyer deux descripteurs de fichier (les extremites du tube).
+pipefd[0] fait reference a l'extremite de lecture
+pipefd[1] fait reference a l'extremite d'ecriture
+
+return 0 si reussit
+return -1 si echec
+
+
+MAN FORK :
+<t_pid fork(void)>
+
+create a new process by duplicating the calling process. The new process is referred to as the child process.
+the calling process is referred to as the parent process.
+
+the child process and the parent process run in separate memory spaces.
+at the time of fork() both memory spaces have the same content
+→ each process has its own copy of the program within its own address space and execute it independently
+of the other copies.
+
+
+MAN DUP2 :
+<int dup2(int oldfd, int newfd)>
+
+creates a copy of the file descriptor oldfd using the file descriptor number specified in newfd.
+
