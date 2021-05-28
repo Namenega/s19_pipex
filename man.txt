@@ -27,3 +27,6 @@ MAN DUP2 :
 
 creates a copy of the file descriptor oldfd using the file descriptor number specified in newfd.
 
+
+MAN EXECVE
+<int execve(const char *file, const char **argv)>

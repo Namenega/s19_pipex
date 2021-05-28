@@ -6,11 +6,27 @@
 /*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 19:42:06 by pyg               #+#    #+#             */
-/*   Updated: 2021/05/27 22:58:57 by pyg              ###   ########.fr       */
+/*   Updated: 2021/05/28 14:46:48 by pyg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
+
+int		lets_open_w(char *av, int fd)
+{
+	fd = open(av, O_WRONLY | O_CREAT);
+	if (fd < 0)
+		error_msg("Outfile Error: fail to open and write");
+	return (fd);
+}
+
+int		lets_open_r(char *av, int fd)
+{
+	fd = open(av, O_RDONLY);
+	if (fd < 0)
+		error_msg("Infile Error: fail to open and read");
+	return (fd);
+}
 
 char	*parse_arg(char *s)
 {
@@ -47,21 +63,31 @@ void	error_msg(char *s)
 	exit(EXIT_FAILURE);
 }
 
-int		main(int ac, char **av)
+int		main(int ac, char **av, char **envp)
 {
-	//int		pipex[4];
-	int		fd;
+	int		pipex[2];
+	pid_t	pid;
+	int		fd[2];
 
 	if (ac != 5)
 		error_msg("ArgNum Error: ./pipex infile cmd1 cmd2 outfile");
-	fd = open(av[1], O_RDONLY);
-	if (fd < 0)
-		error_msg("Arg_1 Error: File doesnt exist");
-	av[2] = parse_argv(av[2]);
-	av[3] = parse_argv(av[3]);
+	if (pipe(pipex) == -1)
+		error_msg("Pipe Error: fail");
+	av[2] = parse_arg(av[2]);
+	av[3] = parse_arg(av[3]);
+	fd[0] = lets_open_r(av[1], fd[0]);
+	fd[1] = lets_open_w(av[4], fd[1]);
+	pid = fork();
+	if (pid == -1)
+		error_msg("Fork Error: fail");
+	if (pid == 0)
+		cmd_1(av[2], fd, pipex, envp);
+	else
+		cmd_2(av[3], fd, pipex, envp);
+	close(fd[0]);
+	close(fd[1]);
 	printf("av2 = [%s]\n", av[2]);
 	printf("av3 = [%s]\n", av[3]);
-	close(fd);
 	return (0);
 }
 
