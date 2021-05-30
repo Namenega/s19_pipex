@@ -6,7 +6,7 @@
 /*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 19:42:06 by pyg               #+#    #+#             */
-/*   Updated: 2021/05/30 23:08:44 by pyg              ###   ########.fr       */
+/*   Updated: 2021/05/30 23:16:06 by pyg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static void	ft_pid_1(int pid_1, int fd[2], char *av, char **envp)
 	char	**cmd;
 
 	cmd = ft_split(av, ' ');
-	// pid_1 = fork();
 	if (pid_1 == -1)
 		error_msg("Pid_1 Fork Error: fork() failed");
 	if (pid_1 == 0)//child process (cmd_1)
@@ -60,7 +59,6 @@ static void	ft_pid_2(int pid_2, int fd[2], char *av, char **envp)
 	char **cmd;
 
 	cmd = ft_split(av, ' ');
-	// pid_2 = fork();
 	if (pid_2 == -1)
 		error_msg("Pid_2 Fork Error: fork() failed");
 	if (pid_2 == 0) //child process (cmd_2)
