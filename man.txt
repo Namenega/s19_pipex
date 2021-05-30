@@ -30,3 +30,7 @@ creates a copy of the file descriptor oldfd using the file descriptor number spe
 
 MAN EXECVE
 <int execve(const char *file, const char **argv)>
+
+
+execve() & fork() are system calls
+dup() & dup2() are redirections

@@ -1,5 +1,4 @@
-SRCNAME 	=	srcs/main.c	\
-				srcs/cmd.c		
+SRCNAME 	=	srcs/pipex.c	
 
 SRCS 		= ${SRCNAME}
 

@@ -6,11 +6,16 @@
 /*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 14:32:27 by pyg               #+#    #+#             */
-/*   Updated: 2021/05/28 15:58:43 by pyg              ###   ########.fr       */
+/*   Updated: 2021/05/30 21:49:33 by pyg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
+
+/*
+** split la commande
+** execve (cmd, option de la cmd, envp)
+*/
 
 void	execute(char **cmd, char **envp)
 {
