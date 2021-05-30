@@ -6,7 +6,7 @@
 /*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 19:42:06 by pyg               #+#    #+#             */
-/*   Updated: 2021/05/30 23:16:06 by pyg              ###   ########.fr       */
+/*   Updated: 2021/05/30 23:55:07 by pyg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,9 @@ int main(int ac, char **av, char **envp)
 	file[0] = lets_open_r(av[1], file[0]);
 	file[1] = lets_open_w(av[4], file[1]);
 	pid_1 = fork();
-	ft_pid_1(pid_1, fd, av[1], envp);
+	ft_pid_1(pid_1, fd, av[2], envp);
 	pid_2 = fork();
-	ft_pid_2(pid_2, fd, av[2], envp);
+	ft_pid_2(pid_2, fd, av[3], envp);
 	close(fd[0]);
 	close(fd[1]);
 	waitpid(pid_1, NULL, 0);
