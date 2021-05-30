@@ -6,7 +6,7 @@
 /*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 19:42:06 by pyg               #+#    #+#             */
-/*   Updated: 2021/05/30 23:55:07 by pyg              ###   ########.fr       */
+/*   Updated: 2021/05/31 00:31:42 by pyg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,23 @@
 
 #include "../include/pipex.h"
 
-static int		lets_open_w(char *av, int fd)
+static int		lets_open_w(char *av, int file)
 {
-	fd = open(av, O_WRONLY | O_CREAT, 0777);
-	if (fd < 0)
+	file = open(av, O_WRONLY | O_CREAT, 0777);
+	if (file < 0)
 		error_msg("Outfile Error: fail to open and write");
-	return (fd);
+	return (file);
 }
 
-static int		lets_open_r(char *av, int fd)
+static int		lets_open_r(char *av, int file)
 {
-	fd = open(av, O_RDONLY);
-	if (fd < 0)
+	file = open(av, O_RDONLY);
+	if (file < 0)
 		error_msg("Infile Error: fail to open and read");
-	return (fd);
+	return (file);
 }
 
-static void	ft_pid_1(int pid_1, int fd[2], char *av, char **envp)
+static void	ft_pid_1(int pid_1, int fd[2], char *av, char **envp, int file_1)
 {
 	char	**cmd;
 
@@ -47,6 +47,7 @@ static void	ft_pid_1(int pid_1, int fd[2], char *av, char **envp)
 		//STDOUT_FILENO = 1
 		//dup2 duplicate fd[1] into fd[2]
 		//fd[2] will point at fd[1]
+		dup2(file_1, STDIN_FILENO);
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[0]);
 		close(fd[1]);
@@ -54,7 +55,7 @@ static void	ft_pid_1(int pid_1, int fd[2], char *av, char **envp)
 	}
 }
 
-static void	ft_pid_2(int pid_2, int fd[2], char *av, char **envp)
+static void	ft_pid_2(int pid_2, int fd[2], char *av, char **envp, int file_2)
 {
 	char **cmd;
 
@@ -65,6 +66,7 @@ static void	ft_pid_2(int pid_2, int fd[2], char *av, char **envp)
 	{
 		//STDIN_FILENO = 0
 		dup2(fd[0], STDIN_FILENO);
+		dup2(file_2, STDOUT_FILENO);
 		close(fd[0]);
 		close(fd[1]);
 		execve(cmd[0], cmd, envp);
@@ -91,9 +93,9 @@ int main(int ac, char **av, char **envp)
 	file[0] = lets_open_r(av[1], file[0]);
 	file[1] = lets_open_w(av[4], file[1]);
 	pid_1 = fork();
-	ft_pid_1(pid_1, fd, av[2], envp);
+	ft_pid_1(pid_1, fd, av[2], envp, file[0]);
 	pid_2 = fork();
-	ft_pid_2(pid_2, fd, av[3], envp);
+	ft_pid_2(pid_2, fd, av[3], envp, file[1]);
 	close(fd[0]);
 	close(fd[1]);
 	waitpid(pid_1, NULL, 0);
