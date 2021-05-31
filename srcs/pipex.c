@@ -6,7 +6,7 @@
 /*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 19:42:06 by pyg               #+#    #+#             */
-/*   Updated: 2021/05/31 00:31:42 by pyg              ###   ########.fr       */
+/*   Updated: 2021/05/31 10:29:56 by pyg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,18 @@
 
 #include "../include/pipex.h"
 
-static int		lets_open_w(char *av, int file)
+static int		open_w(char *av, int file)
 {
 	file = open(av, O_WRONLY | O_CREAT, 0777);
-	if (file < 0)
+	if (file == -1)
 		error_msg("Outfile Error: fail to open and write");
 	return (file);
 }
 
-static int		lets_open_r(char *av, int file)
+static int		open_r(char *av, int file)
 {
 	file = open(av, O_RDONLY);
-	if (file < 0)
+	if (file == -1)
 		error_msg("Infile Error: fail to open and read");
 	return (file);
 }
@@ -90,8 +90,8 @@ int main(int ac, char **av, char **envp)
 		error_msg("ArgNum Error: ./pipex infile cmd1 cmd2 outfile");
 	if (pipe(fd) == -1)
 		error_msg("Pipe Error: pipe failed");
-	file[0] = lets_open_r(av[1], file[0]);
-	file[1] = lets_open_w(av[4], file[1]);
+	file[0] = open_r(av[1], file[0]);
+	file[1] = open_w(av[4], file[1]);
 	pid_1 = fork();
 	ft_pid_1(pid_1, fd, av[2], envp, file[0]);
 	pid_2 = fork();
