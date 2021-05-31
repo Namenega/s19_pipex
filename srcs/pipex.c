@@ -6,7 +6,7 @@
 /*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 19:42:06 by pyg               #+#    #+#             */
-/*   Updated: 2021/05/31 10:29:56 by pyg              ###   ########.fr       */
+/*   Updated: 2021/05/31 14:05:49 by pyg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,13 @@ static int		open_r(char *av, int file)
 static void	ft_pid_1(int pid_1, int fd[2], char *av, char **envp, int file_1)
 {
 	char	**cmd;
+	char	**paths;
+	char	*path;
 
+	paths = ft_split(ft_split(envp[0], '=')[1], ':');
+	path = NULL;
+	// printf("paths[0] for cmd_1 = [%s]\n", paths[0]);
+	// printf("paths[1] for cmd_1 = [%s]\n", paths[1]);
 	cmd = ft_split(av, ' ');
 	if (pid_1 == -1)
 		error_msg("Pid_1 Fork Error: fork() failed");
@@ -47,29 +53,43 @@ static void	ft_pid_1(int pid_1, int fd[2], char *av, char **envp, int file_1)
 		//STDOUT_FILENO = 1
 		//dup2 duplicate fd[1] into fd[2]
 		//fd[2] will point at fd[1]
+		// printf("path for cmd_1 = [%s]\n", path);
 		dup2(file_1, STDIN_FILENO);
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[0]);
 		close(fd[1]);
-		execve(cmd[0], cmd, envp);
+		while (*paths && path == NULL)
+		{
+			path = ft_strjoin(ft_strjoin(*paths, "/"), cmd[0]);
+		}
+		execve(path, cmd, envp); //premier var = path genre /bin/ls -> get ca grace a (?)
 	}
 }
 
 static void	ft_pid_2(int pid_2, int fd[2], char *av, char **envp, int file_2)
 {
-	char **cmd;
+	char	**cmd;
+	char	**paths;
+	char	*path;
 
+	paths = ft_split(ft_split(envp[0], '=')[1], ':');
+	path = NULL;
 	cmd = ft_split(av, ' ');
 	if (pid_2 == -1)
 		error_msg("Pid_2 Fork Error: fork() failed");
 	if (pid_2 == 0) //child process (cmd_2)
 	{
 		//STDIN_FILENO = 0
+		// printf("path for cmd_2 = [%s]\n", path);
 		dup2(fd[0], STDIN_FILENO);
 		dup2(file_2, STDOUT_FILENO);
 		close(fd[0]);
 		close(fd[1]);
-		execve(cmd[0], cmd, envp);
+		while (*paths && path == NULL)
+		{
+			path = ft_strjoin(ft_strjoin(*paths, "/"), cmd[0]);
+		}
+		execve(path, cmd, envp);
 	}
 }
 
