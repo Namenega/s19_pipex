@@ -6,7 +6,7 @@
 /*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 12:24:14 by pyg               #+#    #+#             */
-/*   Updated: 2021/06/03 14:37:53 by pyg              ###   ########.fr       */
+/*   Updated: 2021/06/03 15:47:29 by pyg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,9 @@ static char	*parse_path(t_pipex *pipex, char *cmd_0)
 		}
 		index++;
 	}
+	printf("%s\n", path);
 	ft_free_split(directories);
-	return (error_msg_2(pipex, "Error"));
+	return (error_msg_2(pipex, "Path Error: Wrong/Inexistant path"));
 }
 
 char	*pathing(t_pipex *pipex, char *cmd_0)

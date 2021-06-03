@@ -6,7 +6,7 @@
 /*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 19:42:06 by pyg               #+#    #+#             */
-/*   Updated: 2021/06/03 14:37:23 by pyg              ###   ########.fr       */
+/*   Updated: 2021/06/03 16:29:09 by pyg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,24 @@ void	error_msg(char *s)
 static char	*get_env_path(char **envp)
 {
 	size_t	index;
+	char	*path;
 
 	index = 0;
 	while (envp[index])
 	{
 		if (ft_strncmp(envp[index], "PATH=", 5) == 0)
-			return (ft_substr(envp[index], 5, ft_strlen(envp[index])));
+		{
+			printf("envp[i] = [%s]\n", envp[index]);
+			path = ft_substr(envp[index], 5, ft_strlen(envp[index]));
+		}
 		index++;
 	}
-	error_msg("Envp Error: PATH environement undefined");
-	return (NULL);
+	printf("\n\npath = [%s]\n\n", path);
+	// pipex->path = path;
+	// printf("\np->path_1 = [%s]\n", pipex->path);
+	return (path);
+	// error_msg("Envp Error: PATH environement undefined");
+	// return (NULL);
 }
 
 static void	get_argv(char **av, char **envp, t_pipex *pipex)
@@ -64,7 +72,9 @@ static void	get_argv(char **av, char **envp, t_pipex *pipex)
 	pipex->cmd2 = av[3];
 	open_w(av[4], pipex);
 
+	printf("\np->path_before = [%s]\n", pipex->path);
 	pipex->path = get_env_path(envp);
+	printf("\np->path_2 = [%s]\n", pipex->path);
 	// while (envp[index])
 	// {
 	// 	if (!ft_strncmp(envp[index], "PATH=", 5))
@@ -72,7 +82,6 @@ static void	get_argv(char **av, char **envp, t_pipex *pipex)
 	// 	index++;
 	// }
 
-	printf("p->path = [%s]\n", pipex->path);
 
 	if (pipex->path == NULL)
 		error_msg("Path Error: No path");
