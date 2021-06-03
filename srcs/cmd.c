@@ -5,55 +5,61 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/28 14:32:27 by pyg               #+#    #+#             */
-/*   Updated: 2021/05/30 21:49:33 by pyg              ###   ########.fr       */
+/*   Created: 2021/06/03 12:05:56 by pyg               #+#    #+#             */
+/*   Updated: 2021/06/03 13:10:25 by pyg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-/*
-** split la commande
-** execve (cmd, option de la cmd, envp)
-*/
-
-void	execute(char **cmd, char **envp)
+int		cmd_1(t_pipex *pipex)
 {
-	char	**file_paths;
-	char	*path;
-	char	*tmp;
-	struct stat	buf;
+	char	**cmd;
+	char	*binary;
 
-	path = NULL;
-	file_paths = ft_split(ft_split(envp[0], '=')[1], ':');
-	while (path == NULL && *file_paths)
+	cmd = ft_split(pipex->cmd1, ' ');
+	if (cmd == NULL)
+		error_msg("Split Error: split failed in cmd_1");
+	binary = pathing(pipex, cmd[0]);
+	pipex->pid_1 = fork();
+	if (pipex->pid_1 == 0)
 	{
-		tmp = ft_strjoin(ft_strjoin(*file_paths, "/"), cmd[0]);
-		if (stat(tmp, &buf) == 0)
-			path = tmp;
-		else
-			file_paths++;
+		dup2(pipex->infile, STDIN_FILENO);
+		dup2(pipex->pipefd[1], STDOUT_FILENO);
+		execve(binary, cmd, pipex->envp);
+		error_msg("Cmd_1 Error: execve failed");
 	}
-	if (path == NULL)
-		error_msg("Cmd Error: command not found");
-	else
-		execve(path, cmd, envp);
+	waitpid(pipex->pid_1, NULL, 0);
+	close(pipex->infile);
+	close(pipex->pipefd[1]);
+	pipex->pipefd[1] = -1;
+	ft_free_split(cmd);
+	free(binary);
+	return (0);
 }
 
-void	cmd_1(char *cmd, int fd[2], int pipex[2], char **envp)
+int		cmd_2(t_pipex *pipex)
 {
-	close(pipex[0]);
-	dup2(pipex[1], 1);
-	dup2(fd[0], 0);
-	close(pipex[1]);
-	execute(ft_split(cmd, ' '), envp);
-}
+	char	**cmd;
+	char	*binary;
 
-void	cmd_2(char *cmd, int fd[2], int pipex[2], char **envp)
-{
-	close(pipex[1]);
-	dup2(pipex[0], 0);
-	dup2(fd[1], 1);
-	close(pipex[0]);
-	execute(ft_split(cmd, ' '), envp);
+	cmd = ft_split(pipex->cmd2, ' ');
+	if (cmd == NULL)
+		error_msg("Split Error: split failed in cmd_1");
+	binary = pathing(pipex, cmd[0]);
+	pipex->pid_2 = fork();
+	if (pipex->pid_2 == 0)
+	{
+		dup2(pipex->pipefd[0], STDIN_FILENO);
+		dup2(pipex->outfile, STDOUT_FILENO);
+		execve(binary, cmd, pipex->envp);
+		error_msg("Cmd_2 Error: execve failed");
+	}
+	waitpid(pipex->pid_2, NULL, 0);
+	close(pipex->outfile);
+	close(pipex->pipefd[0]);
+	pipex->pipefd[0] = -1;
+	ft_free_split(cmd);
+	free(binary);
+	return (0);
 }

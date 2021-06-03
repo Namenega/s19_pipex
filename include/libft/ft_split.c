@@ -6,7 +6,7 @@
 /*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 14:27:35 by namenega          #+#    #+#             */
-/*   Updated: 2021/05/27 12:43:21 by pyg              ###   ########.fr       */
+/*   Updated: 2021/06/03 13:18:40 by pyg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	ft_malloc_s(char const *s, char c)
 ** free
 */
 
-static void	ft_free(char **tab)
+void	ft_free_split(char **tab)
 {
 	int i;
 
@@ -68,7 +68,7 @@ static char	*ft_write_eachstr(const char *s, char c, char **tab)
 		i++;
 	dest = ft_substr(s, 0, i);
 	if (dest == NULL)
-		ft_free(tab);
+		ft_free_split(tab);
 	return (dest);
 }
 
