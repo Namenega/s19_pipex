@@ -9,7 +9,7 @@ OBJS 		= ${SRCS:.c=.o}
 
 NAME		= pipex
 
-CC 			= gcc
+CC 			= gcc -g -fsanitize=address
 RM 			= rm -f
 CFLAGS 		= -Wall -Wextra -Werror -I -I./include/libft
 

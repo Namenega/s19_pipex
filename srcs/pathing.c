@@ -6,7 +6,7 @@
 /*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 12:24:14 by pyg               #+#    #+#             */
-/*   Updated: 2021/06/03 15:47:29 by pyg              ###   ########.fr       */
+/*   Updated: 2021/06/03 17:33:07 by pyg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ static char	*parse_path(t_pipex *pipex, char *cmd_0)
 	{
 		path = parse_entire_path(cmd_0, directories[index]);
 		pipex->directory_fd = open(path, O_RDONLY);
-		// printf("dir_fd = [%d]\n", pipex->directory_fd);
 		if (pipex->directory_fd == -1)
 			free(path);
 		else
@@ -55,7 +54,6 @@ static char	*parse_path(t_pipex *pipex, char *cmd_0)
 		}
 		index++;
 	}
-	printf("%s\n", path);
 	ft_free_split(directories);
 	return (error_msg_2(pipex, "Path Error: Wrong/Inexistant path"));
 }

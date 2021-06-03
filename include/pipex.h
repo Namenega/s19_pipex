@@ -6,7 +6,7 @@
 /*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 19:42:50 by pyg               #+#    #+#             */
-/*   Updated: 2021/06/03 13:10:52 by pyg              ###   ########.fr       */
+/*   Updated: 2021/06/03 17:27:15 by pyg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ char	*error_msg_2(t_pipex *pipex, char *s);
 ** OPEN_C
 */
 
-void	open_r(char *av, t_pipex *pipex);
-void	open_w(char *av, t_pipex *pipex);
+int		open_r(char *av);
+int		open_w(char *av);
 
 
 /*

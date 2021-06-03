@@ -6,7 +6,7 @@
 /*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 19:42:06 by pyg               #+#    #+#             */
-/*   Updated: 2021/06/03 16:29:09 by pyg              ###   ########.fr       */
+/*   Updated: 2021/06/03 17:32:19 by pyg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,63 +42,45 @@ void	error_msg(char *s)
 static char	*get_env_path(char **envp)
 {
 	size_t	index;
-	char	*path;
 
 	index = 0;
 	while (envp[index])
 	{
 		if (ft_strncmp(envp[index], "PATH=", 5) == 0)
 		{
-			printf("envp[i] = [%s]\n", envp[index]);
-			path = ft_substr(envp[index], 5, ft_strlen(envp[index]));
+			return (ft_substr(envp[index], 5, ft_strlen(envp[index])));
 		}
 		index++;
 	}
-	printf("\n\npath = [%s]\n\n", path);
-	// pipex->path = path;
-	// printf("\np->path_1 = [%s]\n", pipex->path);
-	return (path);
-	// error_msg("Envp Error: PATH environement undefined");
-	// return (NULL);
+	error_msg("Envp Error: PATH environement undefined");
+	return (NULL);
 }
 
-static void	get_argv(char **av, char **envp, t_pipex *pipex)
+static t_pipex	get_argv(char **av, char **envp)
 {
-	// size_t	index;
+	t_pipex		pipex;
 
-	// index = 0;
-	open_r(av[1], pipex);
-	pipex->cmd1 = av[2];
-	pipex->cmd2 = av[3];
-	open_w(av[4], pipex);
-
-	printf("\np->path_before = [%s]\n", pipex->path);
-	pipex->path = get_env_path(envp);
-	printf("\np->path_2 = [%s]\n", pipex->path);
-	// while (envp[index])
-	// {
-	// 	if (!ft_strncmp(envp[index], "PATH=", 5))
-	// 		pipex->path = ft_substr(envp[index], 5, ft_strlen(envp[index]));
-	// 	index++;
-	// }
-
-
-	if (pipex->path == NULL)
+	ft_memset(&pipex, 0, sizeof(pipex));
+	pipex.infile = open_r(av[1]);
+	pipex.outfile = open_w(av[4]);
+	pipex.cmd1 = av[2];
+	pipex.cmd2 = av[3];
+	pipex.path = get_env_path(envp);
+	if (pipex.path == NULL)
 		error_msg("Path Error: No path");
-	pipex->envp = envp;
+	pipex.envp = envp;
+	return(pipex);
 }
 
 int			main(int ac, char **av, char **envp)
 {
-	t_pipex		*pipex;
-	
-	pipex = ft_calloc_2(sizeof(pipex));
+	t_pipex		pipex;
 	if (ac != 5)
 		error_msg("ArgNum Error: ./pipex infile cmd1 cmd2 outfile");
-	get_argv(av, envp, pipex);
-	if (pipe(pipex->pipefd) == -1)
+	pipex = get_argv(av, envp);
+	if (pipe(pipex.pipefd) == -1)
 		error_msg("Pipe Error: pipe() returned -1");
-	cmd_1(pipex);
-	cmd_2(pipex);
-	free(pipex->path);
+	cmd_1(&pipex);
+	cmd_2(&pipex);
+	free(pipex.path);
 }
