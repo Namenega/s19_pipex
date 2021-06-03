@@ -6,7 +6,7 @@
 /*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 12:24:14 by pyg               #+#    #+#             */
-/*   Updated: 2021/06/03 14:07:31 by pyg              ###   ########.fr       */
+/*   Updated: 2021/06/03 14:37:53 by pyg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static char	*parse_path(t_pipex *pipex, char *cmd_0)
 	{
 		path = parse_entire_path(cmd_0, directories[index]);
 		pipex->directory_fd = open(path, O_RDONLY);
-		printf("dir_fd = [%d]\n", pipex->directory_fd);
+		// printf("dir_fd = [%d]\n", pipex->directory_fd);
 		if (pipex->directory_fd == -1)
 			free(path);
 		else
