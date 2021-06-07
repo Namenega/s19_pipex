@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 12:05:56 by pyg               #+#    #+#             */
-/*   Updated: 2021/06/03 16:43:00 by pyg              ###   ########.fr       */
+/*   Updated: 2021/06/07 18:04:30 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-int		cmd_1(t_pipex *pipex)
+int	cmd_1(t_pipex *pipex)
 {
 	char	**cmd;
 	char	*binary;
@@ -38,7 +38,7 @@ int		cmd_1(t_pipex *pipex)
 	return (0);
 }
 
-int		cmd_2(t_pipex *pipex)
+int	cmd_2(t_pipex *pipex)
 {
 	char	**cmd;
 	char	*binary;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 16:17:32 by namenega          #+#    #+#             */
-/*   Updated: 2021/05/27 12:35:15 by pyg              ###   ########.fr       */
+/*   Updated: 2021/06/07 18:03:44 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 static int	ft_strlennbr(int n)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (n < 0)
@@ -37,7 +37,7 @@ static int	ft_strlennbr(int n)
 ** traduit a l'envers et str[0] = - si neg
 */
 
-char		*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	char	*str;
 	int		i;
@@ -49,7 +49,7 @@ char		*ft_itoa(int n)
 	i = n;
 	if (n == -2147483648)
 		return (ft_strdup("-2147483648"));
-	str = (char*)malloc(sizeof(char) * (j + 1));
+	str = (char *)malloc(sizeof(char) * (j + 1));
 	if (!str)
 		return (NULL);
 	str[j] = '\0';

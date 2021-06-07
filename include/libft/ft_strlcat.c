@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 16:09:21 by namenega          #+#    #+#             */
-/*   Updated: 2020/01/10 15:06:22 by namenega         ###   ########.fr       */
+/*   Updated: 2021/06/07 17:54:32 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	size_t i;
-	size_t j;
-	size_t compteur;
+	size_t	i;
+	size_t	j;
+	size_t	compteur;
 
 	i = 0;
 	compteur = 0;

@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 13:17:06 by namenega          #+#    #+#             */
-/*   Updated: 2020/01/16 16:57:41 by namenega         ###   ########.fr       */
+/*   Updated: 2021/06/07 18:02:43 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	size_t i;
+	size_t	i;
 
 	if (!dest && !src)
 		return (NULL);

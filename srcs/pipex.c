@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 19:42:06 by pyg               #+#    #+#             */
-/*   Updated: 2021/06/03 17:32:19 by pyg              ###   ########.fr       */
+/*   Updated: 2021/06/07 18:05:50 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,13 @@ static t_pipex	get_argv(char **av, char **envp)
 	if (pipex.path == NULL)
 		error_msg("Path Error: No path");
 	pipex.envp = envp;
-	return(pipex);
+	return (pipex);
 }
 
-int			main(int ac, char **av, char **envp)
+int	main(int ac, char **av, char **envp)
 {
 	t_pipex		pipex;
+
 	if (ac != 5)
 		error_msg("ArgNum Error: ./pipex infile cmd1 cmd2 outfile");
 	pipex = get_argv(av, envp);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 14:27:35 by namenega          #+#    #+#             */
-/*   Updated: 2021/06/03 13:18:40 by pyg              ###   ########.fr       */
+/*   Updated: 2021/06/07 18:02:28 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 
 static int	ft_malloc_s(char const *s, char c)
 {
-	int i;
-	int counter;
+	int	i;
+	int	counter;
 
 	i = 0;
 	counter = 0;
@@ -43,7 +43,7 @@ static int	ft_malloc_s(char const *s, char c)
 
 void	ft_free_split(char **tab)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (tab[i] != NULL)
@@ -87,7 +87,7 @@ static char	**malloc_in_tab(char const *s1, char c)
 ** copie chaque char
 */
 
-char		**ft_split(char const *s1, char c)
+char	**ft_split(char const *s1, char c)
 {
 	int		i;
 	int		j;
@@ -100,8 +100,6 @@ char		**ft_split(char const *s1, char c)
 	if (s1 == NULL)
 		return (NULL);
 	tab = malloc_in_tab(s1, c);
-	/*if (!(tab = malloc((ft_malloc_s(s1, c) + 1) * sizeof(char *))))
-		return (NULL);*/
 	while (s1[i])
 	{
 		while (s1[i] == c)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 19:42:50 by pyg               #+#    #+#             */
-/*   Updated: 2021/06/03 17:27:15 by pyg              ###   ########.fr       */
+/*   Updated: 2021/06/07 16:25:05 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <sys/stat.h>
 # include "libft/libft.h"
 
-typedef struct	s_pipex
+typedef struct s_pipex
 {
 	int		infile;
 	int		outfile;
@@ -43,14 +43,12 @@ int		main(int ac, char **av, char **envp);
 void	error_msg(char *s);
 char	*error_msg_2(t_pipex *pipex, char *s);
 
-
 /*
 ** OPEN_C
 */
 
 int		open_r(char *av);
 int		open_w(char *av);
-
 
 /*
 ** CMD_C
